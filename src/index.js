@@ -9,18 +9,28 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
+import { userLoggedIn } from "./actions/auth";
 
 const store = createStore(
-    rootReducer, 
+    rootReducer,
     composeWithDevTools(applyMiddleware(thunk))
 );
 
+if(localStorage.kaktusJWT){
+    const user = {
+        token: localStorage.kaktusJWT
+    };
+
+    store.dispatch(userLoggedIn(user))
+    
+}
+
 ReactDOM.render(
-<BrowserRouter>
-    <Provider store={store}>
-        <App />
-    </Provider>
-</BrowserRouter>,
-document.getElementById('root')
+    <BrowserRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
 );
 registerServiceWorker();

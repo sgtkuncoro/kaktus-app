@@ -6,10 +6,10 @@ import { login } from '../../actions/auth'
 
 class LoginPage extends React.Component{
 
-    submit = data => {
-        // must be on return 
-        return this.props.login(data).then(() => this.props.history.push('/'))
-    }
+    submit = (data) => this.props.login(data).then(() => {
+        return this.props.history.push('/')
+    })
+    
     render() {
         return (
         <div>
